@@ -28,21 +28,21 @@ df = pd.DataFrame(data)
 
 df["rsi"] = talib.RSI(df["close"], timeperiod= 14)
 
-lookback = 5
-df["SwingP_High"] = df["close"] == df["close"].rolling(lookback).max()
-df["SwingR_High"] = df["rsi"] == df["rsi"].rolling(lookback).max()
+lookback1 = 5
+df["SwingP_High"] = df["close"] == df["close"].rolling(lookback1).max()
+df["SwingR_High"] = df["rsi"] == df["rsi"].rolling(lookback1).max()
 
 # Creating Swing condition dataframe
 swing = df[(df["SwingP_High"]) & (df["SwingR_High"])].copy()
 
 
 signal = []
-
+lookback2 = 30
 for i in range(1, len(swing)):
     curr = swing.iloc[i]
 
     # Look at last 'lookback' swing highs before curr
-    for j in range(max(0, i - lookback), i):
+    for j in range(max(0, i - lookback2), i):
         prev = swing.iloc[j]
 
         if (curr["close"] > prev["close"]) and (curr["rsi"] < prev["rsi"]):
@@ -57,3 +57,4 @@ for i in range(1, len(swing)):
 for i in signal:
 
     print(i)
+
