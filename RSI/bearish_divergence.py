@@ -28,16 +28,15 @@ df = pd.DataFrame(data)
 
 df["rsi"] = talib.RSI(df["close"], timeperiod= 14)
 
-# Calculating local minima
-df["SwingP_High"] = (df["close"] >  df["close"].shift(1)) & (df["close"] > df["close"].shift(-1))
-df["SwingR_High"] = (df["rsi"] >  df["rsi"].shift(1)) & (df["rsi"] > df["rsi"].shift(-1))
+lookback = 5
+df["SwingP_High"] = df["close"] == df["close"].rolling(lookback).max()
+df["SwingR_High"] = df["rsi"] == df["rsi"].rolling(lookback).max()
 
 # Creating Swing condition dataframe
 swing = df[(df["SwingP_High"]) & (df["SwingR_High"])].copy()
 
 
 signal = []
-lookback = 5
 
 for i in range(1, len(swing)):
     curr = swing.iloc[i]
@@ -56,4 +55,5 @@ for i in range(1, len(swing)):
             break
 
 for i in signal:
+
     print(i)
