@@ -50,10 +50,12 @@ for i in range(1, len(swing)):
                 "Date": df.loc[curr.name, "date"].strftime("%Y-%m-%d"),
                 "Price": round(float(curr["close"]), 2),
                 "RSI": round(float(curr["rsi"]), 2),
-                "Compared_To": df.loc[prev.name, "date"].strftime("%Y-%m-%d")
+                "Compared_To": df.loc[prev.name, "date"].strftime("%Y-%m-%d"),
+                "Compared_RSI": round(float(prev["rsi"]), 2)
             })
             break
 
 for s in signal:
     print(s)
+
 
