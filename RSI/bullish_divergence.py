@@ -4,7 +4,7 @@ import numpy as np
 import datetime as dt
 import talib
 
-api_key = "muenox7bwqjnv51m"
+api_key = ""
 access_token = ""
 with open("access_token.txt") as f:
     access_token = f.read().strip()
@@ -56,3 +56,4 @@ for i in range(1, len(swing)):
 
 for s in signal:
     print(s)
+
